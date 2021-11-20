@@ -6,6 +6,7 @@
     align-items: center;
     position: sticky;
     top: 0;
+    z-index: 999;
 }
 
 .toppageLeft{
@@ -50,6 +51,7 @@
 .toppageLink{
     margin-right: 10px;
     font-size: 14px;
+    cursor: pointer;
 }
 .toppageIcons{
     display: flex;
