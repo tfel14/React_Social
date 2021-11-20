@@ -1,9 +1,10 @@
 .sidebar{
-    flex: 3;
+    flex: 1;
     height: calc(100vh - 50px);
     overflow-y: scroll;
     position: sticky;
     top: 50px;
+    background-color: rgb(68, 67, 67);
 }
 
 ::-webkit-scrollbar{
@@ -30,6 +31,7 @@
     margin-bottom: 20px;
 }
 
+
 .sidebarIcon{
     margin-right: 15px;
 }
@@ -40,9 +42,11 @@
     padding: 10px;
     border-radius: 5px;
     font-weight: 500;
+    background-color: rgb(104, 104, 104);
 }
 
 .sidebarHr{
+
     margin: 20px 0;
 }
 

@@ -15,20 +15,20 @@ export default function Toppage() {
             </div>
             <div className="toppageRight">
                 <div className="toppageLinks"> 
-                    <span className="toppageLink">Home</span>
-                    <span className="toppageLink">Timeline</span>
+                    <span className="toppageLink1">Home</span>
+                    <span className="toppageLink2">Timeline</span>
                 </div>
                 <div className="toppageIcons">
                     <div className="toppageIconItem">
-                      <Person />  
+                      <Person style={{backgroundColor: "#28e241"}} />  
                       <span className="toppageIconBadge">1</span>
                     </div>
                     <div className="toppageIconItem">
-                      <Chat />  
+                      <Chat style={{backgroundColor: "#28e241"}}/>  
                       <span className="toppageIconBadge">2</span>
                     </div>
                     <div className="toppageIconItem">
-                      <Notifications />  
+                      <Notifications style={{backgroundColor: "#28e241"}}/>  
                       <span className="toppageIconBadge">1</span>
                     </div>
                 </div>
