@@ -15,7 +15,7 @@ export default function Toppage() {
             </div>
             <div className="toppageRight">
                 <div className="toppageLinks"> 
-                    <span className="toppageLink1">Home</span>
+                    <span className="toppageLink1"><a href="/">Home</a></span>
                     <span className="toppageLink2">Timeline</span>
                 </div>
                 <div className="toppageIcons">
@@ -32,7 +32,9 @@ export default function Toppage() {
                       <span className="toppageIconBadge">1</span>
                     </div>
                 </div>
-                <img src="./assets/people/1.jpg" alt="" className="toppageImg"/>
+                <a href="/profile">
+                    <img src="./assets/people/1.jpg" alt="" className="toppageImg"/>
+                </a>
             </div>
         </div>
     );
