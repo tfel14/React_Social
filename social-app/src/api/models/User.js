@@ -17,9 +17,6 @@ const userSchema = new Schema({
         type: String,
         require: true
     },
-
-    posts: [{ type: ObjectId, ref: "Origami" }]
-
 });
 
 // userSchema.methods = {
@@ -44,4 +41,4 @@ userSchema.pre('save', function (next) {
     next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Users', userSchema);

@@ -1,11 +1,11 @@
 import "./register.css"
-// import userController from '../../api/controllers/user';
+import User from '../../api/models/User';
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
 
 function isNewUser(username){
-	const userURL = "http://localhost:3000/api/user"
+	const userURL = "/api/user"
 	return fetch(userURL).then(res=>res.json()).then(users=>{
 		let hasUser = users.find(user=> {
 			return user.username === username;
@@ -16,10 +16,12 @@ function isNewUser(username){
 		return false;
 	})
 }
-function registerUser(username,password){
-	const url ="http://localhost:3000/api/user/register"
+function registerUser(email, username,password){
+	// let userrouter = require('../../api/routes/user');
+	// return userrouter;
+	const url ="/api/user"
 	let data = JSON.stringify({
-		username,password
+		email, username,password
 	})
 	let resources = {
 		method: "POST",
@@ -29,13 +31,11 @@ function registerUser(username,password){
 		},
 		body: data,
 	};
-	return fetch(url,resources).then(res=>res.json())
-
-
+	return fetch(url,resources).then(res=>res);
 }
 
 function Register() {
-    const User = require('../../api/models/User');
+    // const User = require('../../api/models/User');
     let [email, setEmail] = useState('');
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
@@ -48,16 +48,18 @@ function Register() {
 			setError("Both Passwords must be the same!");
 			return;
 		}
-		isNewUser(username).then(bool=>{
-			if(!bool){
-				setError("Need A Unique username");
-				return;
-			}
-			registerUser(username,password).then(res=>{
-				console.log(res);
-				navigate("/login")
-			})
-		})
+		registerUser(email, username,password).then(()=> navigate("/login"));
+		// .then(res=>{
+		// 	// console.log(res);
+		// 	navigate("/login")
+		// })
+		// isNewUser(username).then(bool=>{
+		// 	if(!bool){
+		// 		setError("Need A Unique username");
+		// 		return;
+		// 	}
+			
+		// })
 		
 	};
     return (
