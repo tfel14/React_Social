@@ -1,23 +1,20 @@
-const express = require('express');
-const app = express();
+const config = require('./config/config');
+const dbConnection = require('./config/database');
 
-const dotenv = require('dontenv');
-const helmet = require('helmet');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const userRoutes = require('./routes/users');
-app.use('./api/users', userRoutes);
-mongoose.connect('mongodb://localhost:27017', ()=>{
-    console.log('connected to mongodb!');
-})
-app.use(express.json());
-app.use(helmet());
-app.use(morgan('common'));
+const app = require('express')();
 
-app.get('/', (req, res)=>{
-    res.send("Welcome to homepage")
-})
-dotenv.config();
-app.listen(3000, ()=>{
-    console.log("Listening on port 3000...");
-})
+dbConnection().then(() => {
+
+    require('./config/express')(app);
+
+    require('./config/routes')(app);
+
+    app.use(function (err, req, res, next) {
+        console.error(err);
+        res.status(500).send(err.message);
+        console.log('*'.repeat(90))
+    });
+
+    app.listen(config.port, console.log(`Listening on port ${config.port}!`))
+
+}).catch(console.error);
