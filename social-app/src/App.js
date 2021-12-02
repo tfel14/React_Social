@@ -18,7 +18,7 @@ function App() {
         <Route path= '/register' element={<RegisterPage/>}/>
         <Route path= '/login' element={<LoginPage/>}/>
         <Route path= '/post' element={<PostPage/>}/>
-        <Route path= '/api/user'/>
+        {/* <Route path= '/api/user'/> */}
       </Routes>
     </div>
   )

@@ -19,7 +19,7 @@ function isNewUser(username){
 function registerUser(email, username,password){
 	// let userrouter = require('../../api/routes/user');
 	// return userrouter;
-	const url ="/api/user"
+	const url ="/api/user/register"
 	let data = JSON.stringify({
 		email, username,password
 	})

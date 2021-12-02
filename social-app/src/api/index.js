@@ -8,7 +8,6 @@ dbConnection().then(() => {
     require('./config/express')(app);
 
     require('./config/routes')(app);
-
     app.use(function (err, req, res, next) {
         console.error(err);
         res.status(500).send(err.message);
