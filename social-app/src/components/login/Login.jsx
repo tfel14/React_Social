@@ -7,7 +7,7 @@ export default function Login() {
                 <div className="loginLeft">
                     <h3 className="authLogo">Nosey Neighbor</h3>
                     <span className="loginDesc">Keep tabs on everyone!!</span>
-                </div>
+                </div> 
                 <div className="loginRight">
                     <div className="loginBox">
                         <input placeholder="Email" className="loginInput" id="email"/>
