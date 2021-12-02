@@ -1,11 +1,9 @@
 import "./register.css"
-import User from '../../api/models/User';
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 
-
 function isNewUser(username){
-	const userURL = "/api/user"
+	const userURL = "http://localhost:9999/api/user"
 	return fetch(userURL).then(res=>res.json()).then(users=>{
 		let hasUser = users.find(user=> {
 			return user.username === username;
@@ -17,9 +15,7 @@ function isNewUser(username){
 	})
 }
 function registerUser(email, username,password){
-	// let userrouter = require('../../api/routes/user');
-	// return userrouter;
-	const url ="/api/user/register"
+	const url ="http://localhost:9999/api/user/register"
 	let data = JSON.stringify({
 		email, username,password
 	})
@@ -27,15 +23,14 @@ function registerUser(email, username,password){
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-            'Accept': 'application/json'
+            // 'Accept': 'application/json'
 		},
 		body: data,
 	};
-	return fetch(url,resources).then(res=>res);
+	return fetch(url,resources).then(res=>res.json());
 }
 
 function Register() {
-    // const User = require('../../api/models/User');
     let [email, setEmail] = useState('');
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
