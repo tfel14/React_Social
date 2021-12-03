@@ -1,27 +1,34 @@
-let models = require('../models/')
 const config = require('../config/config');
 const utils = require('../utils');
-
+const User = require('../models/User');
 module.exports = {
     get: (req, res, next) => {
-        models.User.find()
-            .then((users) => res.send(users))
-            .catch(next)
+        User.find()
+            .then((users) => {res.send(users)})
+            // .catch(next)
     },
 
     post: {
-        register: (req, res, next) => {
+        register: async (req, res, next) => {
             const {email, username, password } = req.body;
-            console.log(username,password);
+            console.log(email, username,password);
+            // res.send(req.body);
             //validate the entries here
-            models.User.create({email, username, password })
-                .then((createdUser) => res.send(createdUser))
-                .catch(next)
+            // User.create({email, username, password})
+            //     .then((createdUser) => {
+            //         console.log(createdUser);
+            //         res.send(createdUser);
+            //     })
+            //     .catch(next=>()=>{
+            //         res.send(next)
+            //     })
+            let newUser = await User.create({email, username, password});
+            res.send(newUser);
         },
 
         login: (req, res, next) => {
             const {email, password } = req.body;
-            models.User.findOne({email})
+            User.findOne({email})
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
                     if (!match) {

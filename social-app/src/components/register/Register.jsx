@@ -23,11 +23,12 @@ function registerUser(email, username,password){
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-            // 'Accept': 'application/json'
+			"Request-Timeout": "60000"
+			// 'Accept': 'application/json'
 		},
 		body: data,
 	};
-	return fetch(url,resources).then(res=>res.json());
+	return fetch(url,resources).then(res=>JSON.parse(JSON.stringify(res)));
 }
 
 function Register() {
