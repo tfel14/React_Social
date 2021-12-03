@@ -1,9 +1,6 @@
 import Toppage from "../../components/toppage/Toppage";
 import "./guest.css";
-// function getProfile() {
-//     let profileURL = 'http:localhost:9999/api/user/61aa119702542a1da8dcd047'
-//     return fetch(profileURL).then((res)=>res.json());
-// }
+
 export default function Guest() {
   return (
     <>
@@ -13,11 +10,14 @@ export default function Guest() {
         </div>
         <div className="toppageRight">
           <div className="toppageLinks">
-            <span className="toppageLink2">Login</span>
+            <span className="toppageLink2"><a className="lognLink" href="/login">Login</a></span>
           </div>
         </div>
       </div>
       <div className="guest">
+        <div className="guestImg">
+        <img src="../assets/background.jpg" alt="" className="Img1"/>
+        </div>
         <div className="welcome">
           <h1 className="welcome-title">
             <b>Welcome to Nosey Nieghbor!</b>
@@ -30,7 +30,7 @@ export default function Guest() {
             action!
           </p>
         </div>
-        <button className="registerBtn">Register Now!</button>
+        <button className="registerBtn"><a className="BtnFill" href="/register">Register Now!</a></button>
       </div>
     </>
   );

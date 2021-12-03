@@ -103,3 +103,9 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+a{
+    background-color: #28e241;
+    color: rgb(68, 67, 67);
+
+}
