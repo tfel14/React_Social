@@ -24,27 +24,24 @@ const userSchema = new Schema({
     },
 });
 
-userSchema.method({
+userSchema.method('matchPassword', function (password) {
+    return bcrypt.compare(password, this.password);
+    // return (password == this.password) ? true : false;
+})
 
-    matchPassword: function (password) {
-        // return bcrypt.compare(password, this.password);
-        return (password == this.password) ? true : false;
-    }
 
-});
 
 userSchema.pre('save', function (next) {
-    // if (this.isModified('password')) {
-    //     // bcrypt.genSalt(saltRounds, (err, salt) => {
-    //     //     bcrypt.hash(this.password, salt, (err, hash) => {
-    //     //         if (err) { next(err); return }
-    //     //         this.password = hash;
-    //     //         next();
-    //     //     });
-    //     // });
-    //     this.password 
-    //     return;
-    // }
+    if (this.isModified('password')) {
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(this.password, salt, (err, hash) => {
+                if (err) { next(err); return }
+                this.password = hash;
+                next();
+            });
+        });
+        return;
+    }
     next();
 });
 

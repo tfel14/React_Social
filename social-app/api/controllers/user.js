@@ -2,26 +2,24 @@ const config = require('../config/config');
 const utils = require('../utils');
 const User = require('../models/User');
 module.exports = {
-    get: (req, res, next) => {
+    get: {
+        allUsers: (req, res, next) => {
         User.find()
             .then((users) => {res.send(users)})
             // .catch(next)
+        },
+        profile: (req, res, next) => {
+            User.findById(req.params.id)
+                .then((user) => {res.send(user)})
+                // .catch(next)
+        },
     },
 
     post: {
         register: async (req, res, next) => {
             const {email, username, password } = req.body;
             console.log(email, username,password);
-            // res.send(req.body);
             //validate the entries here
-            // User.create({email, username, password})
-            //     .then((createdUser) => {
-            //         console.log(createdUser);
-            //         res.send(createdUser);
-            //     })
-            //     .catch(next=>()=>{
-            //         res.send(next)
-            //     })
             let newUser = await User.create({email, username, password});
             res.send(newUser);
         },

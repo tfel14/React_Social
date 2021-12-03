@@ -8,13 +8,12 @@ function loginUser(email, password){
         method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-            'Accept': 'application/json'
+            // 'Accept': 'application/json'
 		},
 		body: data,
     }
-    return fetch("http://localhost:9999/api/user/login",resources).then(res=>{
-			//console.log(res.status);
-			return JSON.parse(JSON.stringify(res));
+    return fetch(loginURL, resources).then(res=>{
+		return res.json();
 	})
     // return fetch(loginURL).then((res)=>{return res.json()});
 }
@@ -23,28 +22,10 @@ export default function Login() {
     let [password, setPassword] = useState('');
     const navigate = useNavigate();
     const submitHandler = async (event)=> {
-        event.preventDefault();
-        // if(password !== repassword){
-		// 	setError("Both Passwords must be the same!");
-		// 	return;
-		// }
 		loginUser(email,password)
         .then((res)=> {
-            console.log(res);
-            navigate("/")
+            navigate("/");
         });
-		// .then(res=>{
-		// 	// console.log(res);
-		// 	navigate("/login")
-		// })
-		// isNewUser(username).then(bool=>{
-		// 	if(!bool){
-		// 		setError("Need A Unique username");
-		// 		return;
-		// 	}
-			
-		// })
-		
 	}; 
     return (
         <div className="login">

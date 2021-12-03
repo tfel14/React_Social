@@ -3,7 +3,10 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Rightbar from "../../components/rightbar/Rightbar";
 import Feed from "../../components/feed/Feed";
 import "./profile.css";
-
+// function getProfile() {
+//     let profileURL = 'http:localhost:9999/api/user/61aa119702542a1da8dcd047'
+//     return fetch(profileURL).then((res)=>res.json());
+// }
 export default function Profile() {
   return (
     <>
