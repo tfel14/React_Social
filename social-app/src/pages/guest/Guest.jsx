@@ -30,6 +30,7 @@ export default function Guest() {
             action!
           </p>
         </div>
+        <button className="registerBtn">Register Now!</button>
       </div>
     </>
   );
