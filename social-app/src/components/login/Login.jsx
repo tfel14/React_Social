@@ -24,7 +24,9 @@ export default function Login() {
     const submitHandler = async (event)=> {
 		loginUser(email,password)
         .then((res)=> {
-            navigate("/");
+            console.log(res);
+            let userCreds = res.user;
+            navigate(`/profile/${userCreds._id}`);
         });
 	}; 
     return (
@@ -35,13 +37,13 @@ export default function Login() {
                     <span className="loginDesc">Keep tabs on everyone!!</span>
                 </div> 
                 <div className="loginRight">
-                    <form className="loginBox" onSubmit={submitHandler}>
+                    <div className="loginBox">
                         <input placeholder="Email" className="loginInput" id="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
                         <input placeholder="Password" className="loginInput" id="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-                        <button className="loginButton">Login</button>
+                        <button className="loginButton" type="submit" onClick={submitHandler}>Login</button>
                         <span className="loginForgot">Forgot Password?</span>
                         <button className="loginRegisterButton">Create a New Account</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

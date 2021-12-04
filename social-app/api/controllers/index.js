@@ -1,3 +1,3 @@
 let user = require('./user');
-
-module.exports = {user}
+let post = require('./post');
+module.exports = {user, post}

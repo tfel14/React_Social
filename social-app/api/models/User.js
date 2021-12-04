@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 // mongoose.connect('mongodb://localhost:27017/MessagingAppDB',{ useNewUrlParser: true, useUnifiedTopology: true })
 const Schema = mongoose.Schema;
-const { String, Number, Boolean, ObjectId } = Schema.Types;
+const { String, Number, Boolean, ObjectId, Array } = Schema.Types;
 
 const userSchema = new Schema({
     email: {
@@ -21,12 +21,11 @@ const userSchema = new Schema({
     password: {
         type: String,
         // required: true
-    },
+    }
 });
 
 userSchema.method('matchPassword', function (password) {
     return bcrypt.compare(password, this.password);
-    // return (password == this.password) ? true : false;
 })
 
 

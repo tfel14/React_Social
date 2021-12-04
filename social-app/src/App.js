@@ -13,7 +13,7 @@ function App() {
     <div className="App container">
       <Routes>
         <Route path= '/' exact element={<Home/>} />
-        <Route path= '/profile' element={<Profile/>}/>
+        <Route path= '/profile/:id' element={<Profile/>}/>
         <Route path= '/register' element={<RegisterPage/>}/>
         <Route path= '/login' element={<LoginPage/>}/>
         <Route path= '/post' element={<PostPage/>}/>
