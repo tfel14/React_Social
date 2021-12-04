@@ -4,7 +4,7 @@ import "./feed.css";
 import {Posts} from "../../dummydata";
 // import React, {useState} from 'react';
 function Feed() {
-    let DBPosts = fetch('http://localhost:9999/api/post').then((res)=res.json());
+    let DBPosts = fetch('http://localhost:9999/api/post').then((res)=>res.json());
     console.log(JSON.parse(JSON.stringify(DBPosts)));
     // let [postList, postHandler] = useState(null);
     // postHandler(list);
