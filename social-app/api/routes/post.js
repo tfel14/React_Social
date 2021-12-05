@@ -1,7 +1,7 @@
 const controllers = require('../controllers/');
 const router = require('express').Router();
 
-router.get('/', controllers.post.get);
+router.get('/', controllers.post.get.allPosts);
 
 // router.post('/register', controllers.user.post.register);
 
@@ -9,7 +9,7 @@ router.get('/', controllers.post.get);
 
 // router.post('/logout', controllers.user.post.logout);
 
-// router.get('/:id', controllers.user.get.profile);
+router.get('/:id', controllers.post.get.onePost);
 
 // router.put('/:id', controllers.user.put);
 

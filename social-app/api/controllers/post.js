@@ -2,10 +2,15 @@ const config = require('../config/config');
 const utils = require('../utils');
 const Post = require('../models/Post');
 module.exports = {
-    get: (req, res, next) => {        
-        Post.find().then((postList) => {res.send(postList)});
-            // .catch(next)
-    },
+    get: {
+        allPosts: (req, res, next) => {        
+            Post.find().then((postList) => {res.send(postList)});
+        },
+        onePost: (req, res, next) => { 
+            let id = req.params._id;
+            Post.findOne({id}).then((post) => {res.send(post)});
+        },
+},
     // post: {
     //     register: async (req, res, next) => {
     //         const {email, username, password } = req.body;

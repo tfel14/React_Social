@@ -4,16 +4,7 @@ import "./guest.css";
 export default function Guest() {
   return (
     <>
-      <div className="toppageContainer">
-        <div className="toppageLeft">
-          <span className="logo">Nosey Neighbor</span>
-        </div>
-        <div className="toppageRight">
-          <div className="toppageLinks">
-            <span className="toppageLink2"><a className="lognLink" href="/login">Login</a></span>
-          </div>
-        </div>
-      </div>
+      <Toppage loggedIn={false}/>
       <div className="guest">
         <div className="guestImg">
         <img src="../assets/background.jpg" alt="" className="Img1"/>

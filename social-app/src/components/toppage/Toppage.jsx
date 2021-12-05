@@ -1,7 +1,22 @@
 import "./toppage.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
+import axios from 'axios';
+import privateLinks from './privateLinks';
+import publicLinks from './publicLinks';
+import PrivateRoutes from "../../privateRoute";
+import PublicRoutes from "../../publicRoute";
 
-export default function Toppage() {
+function logoutHandler() {
+    let requestBody = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    return axios.post('http://localhost:9999/api/user/logout', requestBody)
+}
+function Toppage(props) {
+    let loggedIn = props.loggedIn;
     return (
         <div className="toppageContainer">
             <div className="toppageLeft">
@@ -14,9 +29,10 @@ export default function Toppage() {
                 </div>
             </div>
             <div className="toppageRight">
-                <div className="toppageLinks"> 
+                <div className="toppageLinks">
                     <span className="toppageLink1"><a href="/">Home</a></span>
-                    <span className="toppageLink2">Timeline</span>
+                    {(loggedIn) ? <PrivateRoutes logout = {logoutHandler}/> : <PublicRoutes/>}
+                    {/* <span className="toppageLink2">Timeline</span> */}
                 </div>
                 <div className="toppageIcons">
                     <div className="toppageIconItem">
@@ -39,3 +55,4 @@ export default function Toppage() {
         </div>
     );
 }
+export default Toppage;

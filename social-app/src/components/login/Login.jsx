@@ -1,6 +1,7 @@
 import "./login.css"
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import {useCookies} from 'react-cookie';
 function loginUser(email, password){
     let loginURL = 'http://localhost:9999/api/user/login';
     let data = JSON.stringify({email, password});
@@ -21,12 +22,17 @@ export default function Login() {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [cookies, setCookie] = useCookies(['userCookie']);
     const submitHandler = async (event)=> {
 		loginUser(email,password)
         .then((res)=> {
-            console.log(res);
-            let userCreds = res.user;
-            navigate(`/profile/${userCreds._id}`);
+            let userData = res.user;
+            let token = res.token;
+            setCookie('user', userData, {path: '/'});
+            setCookie('token', token, {path: '/'});
+            // document.cookie('x-auth-token', res, {maxAge: 90000})
+            if(userData._id)
+            navigate('/profile/'+userData._id);
         });
 	}; 
     return (

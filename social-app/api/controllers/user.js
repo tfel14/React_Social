@@ -13,6 +13,10 @@ module.exports = {
                 .then((user) => {res.send(user)})
                 // .catch(next)
         },
+        cookies: (req, res, next) => {
+            let cookies = req.cookie;
+            res.send(cookies)
+        },
     },
 
     post: {
@@ -26,7 +30,7 @@ module.exports = {
 
         login: (req, res, next) => {
             const {email, password } = req.body;
-            User.findOne({email})
+            User.findOne({email: email})
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
                     if (!match) {
@@ -35,23 +39,21 @@ module.exports = {
                     }
                     console.log("logged In!")
                     const token = utils.jwt.createToken({ id: user._id });
-                    res.cookie(config.authCookieName, token,{ maxAge: 900000, httpOnly: true }).send({user,token});
+                    // res.cookie(config.authCookieName, token,{ maxAge: 900000, httpOnly: true })
+                    res.send({user,token});          
                 })
                 .catch(next);
         },
 
         logout: (req, res, next) => {
-            const headerToken = req.headers.authorization.split(' ')[1]
-            const token = req.cookies[config.authCookieName] || headerToken;
-            console.log(req.cookies)
+            // const headerToken = req.headers['Content-Type'].split('/')[1]
+            const token = req.cookies.token;
+            console.log(req.cookies);
             console.log('-'.repeat(100));
             console.log(token);
             console.log('-'.repeat(100));
-            models.TokenBlacklist.create({ token })
-                .then(() => {
-                    res.clearCookie(config.authCookieName).send('{"message":"Logout successfully!"}');
-                })
-                .catch(next);
+            res.clearCookie('user');
+            res.clearCookie('token').send('{"message":"Logout successfull!"}');
         }
     },
 
