@@ -7,12 +7,15 @@ import "./home.css"
 
 function LoggedInHome() {
     return (
-        <div>
+        <>
             <Toppage loggedIn={true}/>
-            <Sidebar />
+            <div className="left">
+                <Sidebar />
+            </div>
             <Feed/>
-            <Rightbar/>
-        </div>
+            <Rightbar profile/>
+            
+        </>
     )
   }
 

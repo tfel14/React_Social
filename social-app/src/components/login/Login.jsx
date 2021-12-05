@@ -22,7 +22,7 @@ export default function Login() {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const [cookies, setCookie] = useCookies(['userCookie']);
+    const setCookie = useCookies(['userCookie'])[1];
     const submitHandler = async (event)=> {
 		loginUser(email,password)
         .then((res)=> {

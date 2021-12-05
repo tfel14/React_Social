@@ -1,7 +1,6 @@
 import "./post.css";
 import { MoreVert } from "@material-ui/icons";
-import { Users } from "../../dummydata";
-import React, {Component, useRef} from 'react';
+import React, {Component} from 'react';
 
 
 class Post extends Component {

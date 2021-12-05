@@ -6,3 +6,5 @@ function publicLinks(params) {
         </>
     )
 }
+
+export default publicLinks;

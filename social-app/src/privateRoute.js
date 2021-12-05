@@ -6,12 +6,13 @@ import {Route} from 'react-router-dom';
 
 export default function PrivateRoutes() {
   return (
-    <div className="App container">
-        <Routes>
-            <Route path= '/' exact element={<Home loggedIn={true}/>} />
-            <Route path= '/profile/:id' element={<Profile/>}/>
-            <Route path= '/post/:id' element={<PostPage/>}/>
-        </Routes>
-    </div>
+        <>
+          <Routes>
+              <Route path= '/' exact element={<Home loggedIn={true}/>} />
+              <Route path= '/profile/:id' element={<Profile/>}/>
+              <Route path= '/post/:id' element={<PostPage/>}/>
+          </Routes>
+        </>
+        
   );
 }

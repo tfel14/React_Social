@@ -1,19 +1,6 @@
 import "./register.css"
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
-
-function isNewUser(username){
-	const userURL = "http://localhost:9999/api/user"
-	return fetch(userURL).then(res=>res.json()).then(users=>{
-		let hasUser = users.find(user=> {
-			return user.username === username;
-		});
-		if(hasUser=== undefined){
-			return true;
-		}
-		return false;
-	})
-}
 function registerUser(email, username,password){
 	const url ="http://localhost:9999/api/user/register"
 	let data = JSON.stringify({
@@ -24,7 +11,6 @@ function registerUser(email, username,password){
 		headers: {
 			"Content-Type": "application/json",
 			"Request-Timeout": "60000"
-			// 'Accept': 'application/json'
 		},
 		body: data,
 	};

@@ -6,3 +6,5 @@ function privateLinks(props) {
         </>
     )
 }
+
+export default privateLinks;

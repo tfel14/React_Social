@@ -1,10 +1,8 @@
 import "./toppage.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import axios from 'axios';
-import privateLinks from './privateLinks';
-import publicLinks from './publicLinks';
-import PrivateRoutes from "../../privateRoute";
-import PublicRoutes from "../../publicRoute";
+import PrivateLinks from './privateLinks';
+import PublicLinks from './publicLinks';
 
 function logoutHandler() {
     let requestBody = {
@@ -31,7 +29,7 @@ function Toppage(props) {
             <div className="toppageRight">
                 <div className="toppageLinks">
                     <span className="toppageLink1"><a href="/">Home</a></span>
-                    {(loggedIn) ? <PrivateRoutes logout = {logoutHandler}/> : <PublicRoutes/>}
+                    {(loggedIn) ? <PrivateLinks logout = {logoutHandler}/> : <PublicLinks/>}
                     {/* <span className="toppageLink2">Timeline</span> */}
                 </div>
                 <div className="toppageIcons">
