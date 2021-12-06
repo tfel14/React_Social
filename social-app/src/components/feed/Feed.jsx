@@ -13,7 +13,7 @@ class Feed extends Component {
         let postList = this.state.data;
         if(postList !== undefined){
             this.setState({mappedPosts: postList.map((p)=> (
-                <Post key={p.id} post={p} />
+                <Post key={p.id} post={p} creator={p.userid} date={p.date}/>
             ))})
         }
     }

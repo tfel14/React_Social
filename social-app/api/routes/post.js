@@ -1,15 +1,15 @@
 const controllers = require('../controllers/');
 const router = require('express').Router();
 
-router.get('/', controllers.post.get.allPosts);
+router.get('/', controllers.feedPost.get.allPosts);
 
-// router.post('/register', controllers.user.post.register);
+router.post('/share', controllers.feedPost.post.makeNewPost);
 
 // router.post('/login', controllers.user.post.login);
 
 // router.post('/logout', controllers.user.post.logout);
 
-router.get('/:id', controllers.post.get.onePost);
+router.get('/:id', controllers.feedPost.get.onePost);
 
 // router.put('/:id', controllers.user.put);
 

@@ -3,18 +3,12 @@ import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import axios from 'axios';
 import PrivateLinks from './privateLinks';
 import PublicLinks from './publicLinks';
-
-function logoutHandler() {
-    let requestBody = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    }
-    return axios.post('http://localhost:9999/api/user/logout', requestBody)
-}
+import {useCookies} from 'react-cookie';
 function Toppage(props) {
     let loggedIn = props.loggedIn;
+    let [userCookie, ,removeUserCookie] = useCookies(['user']);
+    let removeTokenCookie = useCookies(['token'])[2];
+    let profileLink = `/profile/${userCookie.user._id}`;
     return (
         <div className="toppageContainer">
             <div className="toppageLeft">
@@ -29,7 +23,10 @@ function Toppage(props) {
             <div className="toppageRight">
                 <div className="toppageLinks">
                     <span className="toppageLink1"><a href="/">Home</a></span>
-                    {(loggedIn) ? <PrivateLinks logout = {logoutHandler}/> : <PublicLinks/>}
+                    {(loggedIn) ? <PrivateLinks logout = {()=>{
+                        removeUserCookie('user');
+                        removeTokenCookie('token');
+                    }}/> : <PublicLinks/>}
                     {/* <span className="toppageLink2">Timeline</span> */}
                 </div>
                 <div className="toppageIcons">
@@ -46,8 +43,8 @@ function Toppage(props) {
                       <span className="toppageIconBadge">1</span>
                     </div>
                 </div>
-                <a href="/profile">
-                    <img src="./assets/people/1.jpg" alt="" className="toppageImg"/>
+                <a href={profileLink}>
+                    <img src={userCookie.user.pfp} alt="" className="toppageImg"/>
                 </a>
             </div>
         </div>

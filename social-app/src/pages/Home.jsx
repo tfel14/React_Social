@@ -7,7 +7,7 @@ function home(props) {
   let loggedIn = props.loggedIn;
   return(
     <div className="homeContainer">
-      {(loggedIn === true) ? <LoggedInHome/> : <Guest/>}
+      {(loggedIn === true) ? <LoggedInHome userpfp={props.userInfo}/> : <Guest/>}
     </div>
   )
 }

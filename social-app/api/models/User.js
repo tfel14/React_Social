@@ -21,7 +21,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         // required: true
-    }
+    },
+    pfp: {type: String, default: 'https://ia801703.us.archive.org/6/items/twitter-default-pfp/e.png'}
 });
 
 userSchema.method('matchPassword', function (password) {

@@ -2,21 +2,20 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import React, {Component} from 'react';
 
-
 class Post extends Component {
     constructor(){
         super();
         this.state = {like: 0, isLiked: false, users: []}
     }
     async componentDidMount(){
-        let users = await fetch('http://localhost:9999/api/post').then((res)=>res.json());
+        let users = await fetch('http://localhost:9999/api/user/').then((res)=>res.json());
+        if(users != null)
         this.setState({users});
     }
     render(){
         let post = this.props.post;
         // const [like,setLike] = useState(post.like)
         // const [isLiked,setIsLiked] = useState(false)
-        console.log(post);
         const likeHandler = ()=>{
             this.setState({
                 like: this.state.isLiked ? this.like-1 : this.like + 1
@@ -24,14 +23,29 @@ class Post extends Component {
             this.setState({isLiked: false})
         }
         let userList = this.state.users;
+        let userid = this.props.creator;
+        let postid = this.props.key;
+        let matchingUser;
+        if(userList.length > 0)
+        matchingUser = userList.find((u)=>{return u._id===userid});
+        let date = this.props.date;
+        let username;
+        let pfp;
+        if(matchingUser != undefined){
+            username = matchingUser.username;
+            pfp = matchingUser.pfp;
+        }else {
+            if(userList.length > 0)
+            console.log(userList);
+        }
         return (
-            <div className="post" >
+            <div className="post" >            
               <div className="postWrapper">
                   <div className="postTop">
                       <div className="postTopLeft">
-                          <img className="postProfileImg" src={userList.filter((u) => u._id === post?.userid).pfp} alt=""/>
-                          <span className="postUsername">{userList.filter((u) => u._id === post?.userid).username } </span>
-                          <span className="postDate">{post?.date}</span>
+                          <img className="postProfileImg" src={pfp} alt=""/>
+                          <span className="postUsername">{username}</span>
+                          <span className="postDate">{date}</span>
                       </div>
                       <div className="postTopRight">
                         <MoreVert />
@@ -39,7 +53,7 @@ class Post extends Component {
                   </div>
                   <div className="postCenter">
                       <span className="postText">{post?.desc}</span>
-                      <img className="postImg" src={post?.photo} alt=""/>
+                      {/* <img className="postImg" src={post?.photo} alt=""/> */}
                   </div>
                   <div className="postBottom">
                       <div className="postBottomLeft">

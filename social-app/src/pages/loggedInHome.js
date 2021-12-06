@@ -14,7 +14,7 @@ function LoggedInHome() {
       </div>
     <div className="homeContainer">
       <Sidebar /> 
-      <Feed/>
+      <Feed />
       <Rightbar profile />
     </div>
     </>

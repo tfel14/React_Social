@@ -9,7 +9,7 @@ function App(){
     console.log(cookie);
     return(
       <div className="toppageLinks">
-        <PrivateRoutes/>
+        <PrivateRoutes userinfo={cookie.user}/>
       </div>
     )
   }
