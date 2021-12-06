@@ -8,14 +8,14 @@ function App(){
   if(cookie.user !== undefined){
     console.log(cookie);
     return(
-      <div className="App container">
+      <div className="toppageLinks">
         <PrivateRoutes/>
       </div>
     )
   }
   else {
     return(
-      <div className="App container">
+      <div className="toppageLinks">
         <PublicRoutes/>  
       </div>
     )
