@@ -4,11 +4,13 @@ import axios from 'axios';
 import PrivateLinks from './privateLinks';
 import PublicLinks from './publicLinks';
 import {useCookies} from 'react-cookie';
+import {useNavigate} from 'react-router-dom';
 function Toppage(props) {
     let loggedIn = props.loggedIn;
     let [userCookie, ,removeUserCookie] = useCookies(['user']);
     let removeTokenCookie = useCookies(['token'])[2];
-    let profileLink = `/profile/${userCookie.user._id}`;
+    let profileLink = null; //`/profile/${userCookie.user.id}`;
+    let navigate = useNavigate();
     return (
         <div className="toppageContainer">
             <div className="toppageLeft">
@@ -26,6 +28,7 @@ function Toppage(props) {
                     {(loggedIn) ? <PrivateLinks logout = {()=>{
                         removeUserCookie('user');
                         removeTokenCookie('token');
+                        navigate('/');
                     }}/> : <PublicLinks/>}
                     {/* <span className="toppageLink2">Timeline</span> */}
                 </div>
@@ -44,7 +47,7 @@ function Toppage(props) {
                     </div>
                 </div>
                 <a href={profileLink}>
-                    <img src={userCookie.user.pfp} alt="" className="toppageImg"/>
+                    {(loggedIn) ? <img src={userCookie.user.pfp} alt="" className="toppageImg"/> : null}
                 </a>
             </div>
         </div>
