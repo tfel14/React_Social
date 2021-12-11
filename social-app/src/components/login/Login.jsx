@@ -14,7 +14,10 @@ function loginUser(email, password){
 		body: data,
     }
     return fetch(loginURL, resources).then(res=>{
+        if(res.status === 200)
 		return res.json();
+        else
+        return 'invalid credentials';
 	})
     // return fetch(loginURL).then((res)=>{return res.json()});
 }
@@ -26,13 +29,17 @@ export default function Login() {
     const submitHandler = async (event)=> {
 		loginUser(email,password)
         .then((res)=> {
-            let userData = res.user;
-            let token = res.token;
-            setCookie('user', userData, {path: '/'});
-            setCookie('token', token, {path: '/'});
-            // document.cookie('x-auth-token', res, {maxAge: 90000})
-            if(userData._id)
-            navigate('/profile/'+userData._id);
+            if(typeof res != 'string'){
+                let userData = res.user;
+                let token = res.token;
+                setCookie('user', userData, {path: '/'});
+                setCookie('token', token, {path: '/'});
+                if(userData._id)
+                navigate('/profile/'+userData._id);
+            }else {
+                alert(res);
+            }
+            
         });
 	}; 
     return (

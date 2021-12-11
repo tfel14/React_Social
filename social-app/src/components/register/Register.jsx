@@ -6,15 +6,15 @@ function registerUser(email, username,password){
 	let data = JSON.stringify({
 		email, username,password
 	})
-	let resources = {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Request-Timeout": "60000"
-		},
-		body: data,
-	};
-	return fetch(url,resources).then(res=>JSON.parse(JSON.stringify(res)));
+    let resources = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Request-Timeout": "60000"
+        },
+        body: data,
+    };
+    return fetch(url,resources).then(res=>JSON.parse(JSON.stringify(res)));
 }
 
 function Register() {
@@ -22,27 +22,18 @@ function Register() {
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
     let [repassword, setRepassword] = useState('');
-    let [error, setError] = useState('');
     const navigate = useNavigate();
     const submitHandler = (event)=> {
+        let emailDomainIndex = email.length-4;
         event.preventDefault();
         if(password !== repassword){
-			setError("Both Passwords must be the same!");
+			alert("Both Passwords must be the same!");
 			return;
-		}
-		registerUser(email, username,password).then(()=> navigate("/login"));
-		// .then(res=>{
-		// 	// console.log(res);
-		// 	navigate("/login")
-		// })
-		// isNewUser(username).then(bool=>{
-		// 	if(!bool){
-		// 		setError("Need A Unique username");
-		// 		return;
-		// 	}
-			
-		// })
-		
+		}else if(email.includes('@') && email.substr(emailDomainIndex).length === 3) {
+            alert('Invalid email!');
+            return;
+        }
+		else registerUser(email, username,password).then(()=> navigate("/login"));	
 	};
     return (
         <div className="register">

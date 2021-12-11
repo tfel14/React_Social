@@ -17,21 +17,23 @@ class Post extends Component {
         // const [like,setLike] = useState(post.like)
         // const [isLiked,setIsLiked] = useState(false)
         const likeHandler = ()=>{
-            this.setState({
-                like: this.state.isLiked ? this.like-1 : this.like + 1
-            })
-            this.setState({isLiked: false})
+            // this.setState({
+            //     like: this.like+1
+            // })
+            // this.setState({isLiked: true})
+            this.setState({like: this.like + 1})
+            console.log(this.state.like);
         }
         let userList = this.state.users;
         let userid = this.props.creator;
-        let postid = this.props.key;
         let matchingUser;
         if(userList.length > 0)
         matchingUser = userList.find((u)=>{return u._id===userid});
         let date = this.props.date;
         let username;
         let pfp;
-        if(matchingUser != undefined){
+        let state = this.state;
+        if(matchingUser !== undefined){
             username = matchingUser.username;
             pfp = matchingUser.pfp;
         }else {
@@ -56,11 +58,11 @@ class Post extends Component {
                       {/* <img className="postImg" src={post?.photo} alt=""/> */}
                   </div>
                   <div className="postBottom">
-                      <div className="postBottomLeft">
+                      {/* <div className="postBottomLeft">
                           <img className="likeIcon" src="/assets/1.png" onClick={likeHandler} alt=""/>
                           <img className="likeIcon" src="/assets/2.png" onClick={likeHandler} alt=""/>
-                          <span className="postLikeCounter">{this.state.like} people like it</span>
-                      </div>
+                          <span className="postLikeCounter">{state?.like} people like it</span>
+                      </div> */}
                       <div className="postBottomRight">
                           <span className="postCommentText">{post?.comments} comments</span>
                       </div>
