@@ -13,6 +13,6 @@ router.get('/:id', controllers.feedPost.get.onePost);
 
 router.post('/like/:id', controllers.feedPost.post.like);
 
-// router.delete('/:id', controllers.user.delete);
+router.delete('/delete/:id', controllers.feedPost.delete);
 
 module.exports = router;

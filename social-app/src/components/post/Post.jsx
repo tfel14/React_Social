@@ -2,10 +2,12 @@ import "./post.css";
 import { MoreVert } from "@material-ui/icons";
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 export default function Post(props) {
         let [username, setUser] = useState('');
         let [pfp, setPfp] = useState('');
+        let post = props.post;
+        let navigate = useNavigate();
     useEffect(async () => {
         let userid = props.creator;
         let userObj = await fetch(`http://localhost:9999/api/user/${userid}`).then(res=>res.json()).then(user=>user);
@@ -14,9 +16,9 @@ export default function Post(props) {
       });
       
         
-        let post = props.post;
         let currLikes = post.likes;
         let [likeCt, setLikes] = useState(currLikes);
+        let showDropdown = false;
         const likeHandler = async () => {
             let postid = post._id;
             let newLikes = await fetch(`http://localhost:9999/api/post/like/${postid}`, {
@@ -29,7 +31,19 @@ export default function Post(props) {
             setLikes(newLikes);
             console.log(newLikes);
         }
+
+        const deleteHandler = async () => {
+            let postid = post._id;
+            await fetch(`http://localhost:9999/api/post/delete/${postid}`, {
+                method: 'DELETE',
+                // headers: { 'Content-Type': 'application/json' },
+                // body: JSON.stringify({
+                //   likes: post.likes+1
+                // })
+            }).then(()=>window.location.reload(false));
+        }
         let date = props.date;
+
         
         return (
             <div className="post" >            
@@ -40,9 +54,23 @@ export default function Post(props) {
                           <span className="postUsername">{username}</span>
                           <span className="postDate">{date}</span>
                       </div>
-                      <div className="postTopRight">
-                        <MoreVert />
-                      </div>
+                      <div className="postTopRight" onClick={(e)=>{
+                        let dropdown = document.getElementById('dropdown-options');
+                        if(showDropdown === false){
+                            dropdown.style.display = 'block'
+                            showDropdown = true;
+                        } else {
+                            dropdown.style.display = 'none'
+                            showDropdown = false;
+                        }
+                      }}>
+                            <MoreVert/>
+                            <div className="dropdown-content" id="dropdown-options" style={{display: 'none'}}>
+                                <a>Edit</a>
+                                <a onClick={deleteHandler}>Delete</a>
+                            </div>
+                            
+                        </div>
                   </div>
                   <div className="postCenter">
                       <span className="postText">{post?.desc}</span>

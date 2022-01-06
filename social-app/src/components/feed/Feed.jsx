@@ -12,9 +12,11 @@ class Feed extends Component {
         this.setState({ data: DBPosts });
         let postList = this.state.data;
         if(postList !== undefined){
-            this.setState({mappedPosts: postList.map((p)=> (
+            this.setState({
+                mappedPosts: (postList.map((p)=> (
                 <Post key={p.id} post={p} creator={p.userid} date={p.date}/>
-            ))})
+            ))).reverse()
+        })
         }
     }
     
@@ -24,9 +26,6 @@ class Feed extends Component {
             <div className="feed">
                 <div className="feedWrapper">
                     <Share/>
-                    {/* {Posts.map((p)=> (
-                    <Post key={p.id} post={p} />
-                    ))} */}
                     {mappedPostList}
                 </div>
             </div>

@@ -15,11 +15,15 @@ module.exports = {
             const userCookie = req.body.userCookie;
             const postPhoto = req.body.postPhoto;
             //validate the entries here
-            let newPost = await Post.create({
+            let newPost;
+            
+            newPost = await Post.create({
                 desc: postDesc,
                 userid: userCookie._id,
                 photo: postPhoto
             });
+
+            
             console.log(newPost);
             res.send(newPost);
         },
@@ -48,10 +52,10 @@ module.exports = {
         // }
     },
 
-    // delete: (req, res, next) => {
-    //     const id = req.params.id;
-    //     models.User.deleteOne({ _id: id })
-    //         .then((removedUser) => res.send(removedUser))
-    //         .catch(next)
-    // }
+    delete: (req, res, next) => {
+        const id = req.params.id;
+        Post.deleteOne({ _id: id })
+            .then((removedUser) => res.send(removedUser))
+            .catch(next)
+    }
 }

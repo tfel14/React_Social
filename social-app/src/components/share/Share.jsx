@@ -3,30 +3,30 @@ import { PermMedia, Label,Room,EmojiEmotions, Cancel } from "@material-ui/icons"
 import React, {useState, useRef} from 'react';
 import {useCookies} from 'react-cookie';
 import { useNavigate } from "react-router-dom";
-import {useDropzone} from 'react-dropzone';
+var shortUrl = require('node-url-shortener');
 
-// import axios from "axios";
+
 
 function Share() {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [file, setFile] = useState(null);
-  
-  
-  // const {getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
-  //   // Disable click and keydown behavior
-  //   noClick: true, 
-  //   noKeyboard: true
-  // });
 
-  // const files = acceptedFiles.map(file => (
-  //   <li key={file.path}>
-  //     {file.path} - {file.size} bytes
-  //   </li>));
-  let [postDesc, setDesc] = useState('');
+  let [postDesc, setDesc] = useState(null);
   let navigate = useNavigate();
   let cookie = useCookies(['user'])[0];
-  const inputFile = useRef(null); 
-  // let [postImg, setImgSrc] = useState('');
+  let [fileURL, setFileURL] = useState(null);
+  if(file){
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // log to console
+      // logs data:<type>;base64,wL2dvYWwgbW9yZ...
+      setFileURL(reader.result);
+      console.log(fileURL);
+    };
+    reader.readAsDataURL(file);
+  }
+  // fileURL = reader.result;
+  // console.log(fileURL);
+
   return (
     <div className="share">
       <div className="shareWrapper">
@@ -38,10 +38,11 @@ function Share() {
           />
         </div>
         <hr className="shareHr" />
-        {file && (
+        {file && fileURL && (
           <div className="shareImgContainer">
-            <img className="shareImg" src={URL.createObjectURL(file)} alt=""/>
+            <img className="shareImg" src={fileURL} alt=""/>
             <Cancel className="shareCancelImg" onClick={()=>setFile(null)}/>
+            
           </div>
         )}
         <div className="shareBottom">
@@ -67,12 +68,10 @@ function Share() {
           <button className="shareButton" onClick={()=>{
             let userCookie = cookie.user;
             console.log(file);
-            let postPhoto;
-            if(file != null)
-            postPhoto = URL.createObjectURL(file);
+            
             let url = 'http://localhost:9999/api/post/share';
               let data = JSON.stringify({
-                postPhoto,
+                postPhoto: fileURL,
                 postDesc,
                 userCookie
               });
@@ -85,11 +84,10 @@ function Share() {
               }
               return fetch(url, resources)
               .then(res=>{
-                
                 return res.json();
             }).then(post => {
-              console.log(post); 
-              navigate('/');
+              console.log(post);
+              window.location.reload(false);
           })
           }}>Share</button>
         </div>
